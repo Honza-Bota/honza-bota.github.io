@@ -19,9 +19,11 @@ body {
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
+    z-index:1;
 }
 .container:hover {
     transform: scale(1.1);
+    background-color: #03193F;
 }
 .star {
     position: absolute;
