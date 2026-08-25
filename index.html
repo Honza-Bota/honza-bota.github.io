@@ -4,16 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honza Boťa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<div class="hero">
-		<div class="container">
-		    <h1>Ahoj, tady Honza!</h1>
-		</div>
-	       <button id="showMore">Více o mně</button>
-       </div>
-       <div class="stars"/>
+    <div class="dust"></div>
+
+    <nav class="site-nav">
+        <a class="brand" href="index.html" data-config="name">Honza Boťa</a>
+        <ul>
+            <li><a href="index.html" data-config="nav.home">Domů</a></li>
+            <li><a href="about.html" data-config="nav.about">O mně</a></li>
+        </ul>
+    </nav>
+
+    <main class="hero">
+        <p class="eyebrow" data-config="eyebrow">$ whoami</p>
+        <h1>
+            <span data-config="hero.greeting">Ahoj, tady Honza</span><span class="cursor">_</span>
+        </h1>
+        <span class="stroke"></span>
+        <p class="role" data-config="hero.role">Programátor</p>
+        <a class="cta" href="about.html">
+            <span data-config="hero.cta">Více o mně</span>
+            <span class="arrow" aria-hidden="true">→</span>
+        </a>
+    </main>
+
+    <footer class="site-footer">
+        <span data-config="footer">Honza Boťa</span>
+    </footer>
+
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,80 +1,335 @@
-body {
-    background-color: #0a1f44;
-    color: #ffffff;
-    font-family: "Playfair Display", serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-}
-a {
-  color: white;
-  text-decoration: none;
-}
-.hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 1;
-}
-.container {
-    background: rgba(0, 0, 0, 0.3);
-    font-size: 2rem;
-    border: 3px solid #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-    cursor: pointer;   
-    position: relative;
-    z-index: 2;
-}
-.container:hover {
-    transform: scale(1.1);
-    background: rgba(0, 0, 0, 0.4);
-}
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    background-color: transparent;
-    border: 2px solid white;
-    color: white;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-button:hover {
-    background: white;
-    color: #0a1f44;
-}
-.stars {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: 0;
-}
-.star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background-color: white;
-    opacity: 0.8;
-    border-radius: 50%;
-    animation: twinkle 1.5s infinite alternate ease-in-out;
-}
-@keyframes twinkle {
-    0% { opacity: 0.3; }
-    100% { opacity: 1; }
+/* ---------------------------------------------
+   Tokens
+--------------------------------------------- */
+:root {
+  --bg: #0b0e14;
+  --bg-alt: #10141d;
+  --ink: #f3efe6;
+  --muted: #8a8f9c;
+  --gold: #c9a227;
+  --gold-soft: #e8c766;
+  --border: rgba(243, 239, 230, 0.12);
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Inter", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* ---------------------------------------------
+   Ambient gold dust field
+--------------------------------------------- */
+.dust {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mote {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  opacity: 0.35;
+  animation: drift linear infinite, twinkle ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.15; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-24px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mote {
+    animation: none;
+    opacity: 0.3;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------------------------------------------
+   Nav
+--------------------------------------------- */
+.site-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem clamp(1.5rem, 5vw, 3.5rem);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.site-nav .brand {
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.site-nav .brand:hover {
+  color: var(--gold-soft);
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--ink);
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+/* ---------------------------------------------
+   Hero (index.html)
+--------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin: 0 0 1.25rem;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.75rem, 8vw, 5.5rem);
+  line-height: 1.05;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.cursor {
+  display: inline-block;
+  color: var(--gold);
+  animation: blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.hero .stroke {
+  display: block;
+  width: clamp(120px, 22vw, 220px);
+  height: 3px;
+  margin: 1.4rem auto 0;
+  background: var(--gold);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: draw 0.9s 0.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes draw {
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .stroke {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
+.hero .role {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 1.5rem 0 0;
+}
+
+.hero .cta {
+  margin-top: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.hero .cta:hover,
+.hero .cta:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold-soft);
+  transform: translateY(-1px);
+}
+
+.hero .cta .arrow {
+  transition: transform 0.2s ease;
+}
+
+.hero .cta:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* ---------------------------------------------
+   About page
+--------------------------------------------- */
+.about {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 5rem) 1.5rem;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.about-heading {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin: 0 0 1.5rem;
+}
+
+.about-bio {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.about-contact {
+  border-left: 1px solid var(--border);
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.terminal-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.terminal-label .prompt {
+  color: var(--gold);
+}
+
+.about-contact a {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.about-contact a:hover,
+.about-contact a:focus-visible {
+  color: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+@media (max-width: 720px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+  .about-contact {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+}
+
+/* ---------------------------------------------
+   Footer
+--------------------------------------------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem 1.5rem 2.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}

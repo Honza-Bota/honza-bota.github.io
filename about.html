@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O mně</title>
+    <title>O mně — Honza Boťa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="about">
-        <h2>O mně</h2>
-        <p>Jsem Honza Boťa, rád tě poznávám.</p>
-        <h2>Kontakt</h2>
-        <p>Email: <a href="mailto:kontakt@janbota.cz">kontakt@janbota.cz</a></p>
-    </div>
+    <div class="dust"></div>
+
+    <nav class="site-nav">
+        <a class="brand" href="index.html" data-config="name">Honza Boťa</a>
+        <ul>
+            <li><a href="index.html" data-config="nav.home">Domů</a></li>
+            <li><a href="about.html" data-config="nav.about">O mně</a></li>
+        </ul>
+    </nav>
+
+    <main class="about">
+        <section>
+            <p class="about-heading" data-config="about.heading">O mně</p>
+            <p class="about-bio" data-config="about.bio">Jsem Honza Boťa, rád tě poznávám.</p>
+        </section>
+        <section class="about-contact">
+            <span class="terminal-label"><span class="prompt" data-config="about.contactLabel">$ contact --email</span></span>
+            <a href="mailto:kontakt@janbota.cz" data-email-link data-config="about.email">kontakt@janbota.cz</a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span data-config="footer">Honza Boťa</span>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
